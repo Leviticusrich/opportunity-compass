@@ -83,4 +83,20 @@ export function makePlan(o,profile){const hours=profile.hours==='tiny'?'20–40 
  {day:'07',title:'Decide using evidence',body:'Review actual feedback, time spent and likely costs. Continue, adjust, or try the next option.'}
 ].map(d=>({...d,duration:hours}));}
 export function brief(profile,choice){const p=rank(profile).slice(0,5);return `Opportunity Compass profile:\n${JSON.stringify(profile)}\nTop candidates:\n${p.map(o=>`${o.title} (${o.kind}): ${o.summary}. Tradeoff: ${o.tradeoff}.`).join('\n')}\nCurrent choice: ${choice?.title||'None'}.`;}
-export function fallbackAnswer(message,chosen,profile){const q=message.toLowerCase();if(q.includes('start')||q.includes('first')||q.includes('week'))return `For ${chosen.title}, begin with this small, low-cost validation: ${chosen.launch} Start with one sample before spending money. You can use the 7-day roadmap below to keep the project manageable.`;if(q.includes('money')||q.includes('earn')||q.includes('income'))return `${chosen.title} is paid for this reason: ${chosen.payer} Actual earnings depend on demand, experience, and terms. ${chosen.tradeoff} I would validate an actual employer or buyer before projecting income.`;if(q.includes('skill')||q.includes('learn'))return `For ${chosen.title}, focus first on the skill needed to deliver one small, credible result. ${chosen.launch} Avoid buying a long course before you have proof the work interests you and a buyer needs it.`;return `For ${chosen.title}, the clearest next step is: ${chosen.launch} The key tradeoff is that ${chosen.tradeoff.toLowerCase()} For a more detailed follow-up, enable the optional AI advisor backend. You can also try asking about the first week, skills, or income.`;}
+export function fallbackAnswer(message,chosen,profile){
+ const q=message.toLowerCase();
+ const title=chosen?.title||'this path';
+ const budget=profile.budget==='zero'?'Since your discretionary budget is $0, start with free resources and avoid buying training until the opportunity is validated.':'Start with a small test before committing money.';
+ const base= q.includes('money')||q.includes('earn')||q.includes('income')
+ ? `For ${title}, identify who pays before estimating income. ${chosen.payer} Compare actual job listings or interview potential buyers; revenue and dependable take-home income are different. ${chosen.tradeoff}`
+ :q.includes('skill')||q.includes('learn')
+ ? `To prepare for ${title}, work backward from one deliverable a real employer or client would value. Build a truthful sample, request feedback, and address only the skill gaps the sample reveals. ${chosen.launch}`
+ :q.includes('time')||q.includes('schedule')||q.includes('hour')
+ ? `To fit ${title} into your current schedule, break the first experiment into two or three focused sessions. Start with: ${chosen.launch} Assess whether that workload is repeatable before accepting long-term commitments.`
+ :q.includes('client')||q.includes('customer')||q.includes('apply')||q.includes('job')
+ ? `A practical next step for ${title}: ${chosen.launch} For a job, verify genuine vacancies and tailor an honest application. For a service, find a prospective buyer and ask about the problem before pitching a paid solution.`
+ :q.includes('coaching')||q.includes('mentor')||q.includes('help')
+ ? 'Productivity Accelerator offers optional group coaching at www.challenge.productivityaccelerator.org and more intensive 1-on-1 coaching at www.productivityaccelerator.org/our-process. The 1-on-1 option is $1,000/month following an offered free first month; confirm conditions before enrolling. It provides more personalized attention, but faster results cannot be guaranteed.'
+ :`For ${title}, I would test this before treating it as a reliable income path: ${chosen.launch} The main tradeoff is ${chosen.tradeoff.toLowerCase()} Compare it with the other recommended options if that tradeoff is unacceptable.`;
+ return base+' '+budget+' Your 7-day roadmap gives you a measurable way to decide whether to continue. Optional group or 1-on-1 coaching links are shown below if accountability would help.';
+}
