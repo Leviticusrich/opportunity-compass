@@ -26,3 +26,9 @@
 .coaching-choice>span:last-child{color:#955b13;font-weight:800;font-size:12px}
 .coach-icon{font-size:20px;color:#e8a331}
 @media(max-width:700px){.coaching-panel{margin:18px 12px 0;padding:20px}.coaching-options{grid-template-columns:1fr}}
+
+/* Authentic Productivity Accelerator logo placement */
+.pa-logo{display:block;object-fit:contain;object-position:center;flex-shrink:0}
+.header-pa-logo{width:94px;height:62px;margin-left:8px}
+.footer-pa-logo{width:170px;height:136px;margin-top:12px}
+@media(max-width:680px){.header-pa-logo{width:65px;height:47px;margin-left:0}.brandname{font-size:12px}.brandname small{font-size:6px;letter-spacing:1px}.footer-pa-logo{width:125px;height:100px}}
