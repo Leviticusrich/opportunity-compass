@@ -32,3 +32,11 @@
 .header-pa-logo{width:94px;height:62px;margin-left:8px}
 .footer-pa-logo{width:170px;height:136px;margin-top:12px}
 @media(max-width:680px){.header-pa-logo{width:65px;height:47px;margin-left:0}.brandname{font-size:12px}.brandname small{font-size:6px;letter-spacing:1px}.footer-pa-logo{width:125px;height:100px}}
+
+/* Brand logos link to the Productivity Accelerator home page. */
+.brandmark{display:none}
+.brand .header-pa-logo{width:74px;height:65px;margin:0;object-fit:contain}
+.footbrand{display:inline-flex;align-items:center;gap:13px}
+.footbrand .footer-pa-logo{width:95px;height:86px;margin:0;object-fit:contain}
+.brand:hover,.footbrand:hover{opacity:.87}
+@media(max-width:680px){.brand .header-pa-logo{width:55px;height:52px}.footbrand .footer-pa-logo{width:76px;height:70px}}
